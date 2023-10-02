@@ -136,8 +136,8 @@ const saveToFile = () => {
 const generateKey = () => {
   copiedValue.value = false;
   if (!firstNumber.value || !secondNumber.value || !thirdNumber.value) return;
-  primeKey.value = firstNumber.value * secondNumber.value;
-  console.log(primeKey);
+  const value = firstNumber.value * secondNumber.value;
+  primeKey.value = `${value}  |  ${thirdNumber.value}`
   dialog.value = true;
 };
 

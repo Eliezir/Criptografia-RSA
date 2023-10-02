@@ -13,11 +13,19 @@
       </div>
     </v-col>
   </v-row>
-  <ButtonsRow nextName="O que é?" previousName="Home" nextPath="/docs/o_que_e" previousPath="/"/>
+  <ButtonsRow nextName="RSA" @next="nextPage"/>
 </template>
 
 <script setup>
 import ButtonsRow from "./buttonsRow.vue";
+import { defineEmits } from "vue";
+const emit = defineEmits(["next", "previous"]);
+
+const nextPage = () => {
+  emit("next", "rsa");
+};
+
+
 </script>
 
 <style >
@@ -30,12 +38,9 @@ import ButtonsRow from "./buttonsRow.vue";
 
 }
 
-
 #title{
     text-wrap: balance;
 }
-
-
 
 @media (max-width:960px) {
     #title{
