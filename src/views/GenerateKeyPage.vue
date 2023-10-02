@@ -133,12 +133,24 @@ const saveToFile = () => {
   element.click();
 };
 
-const generateKey = () => {
+const generateKey = async () => {
   copiedValue.value = false;
   if (!firstNumber.value || !secondNumber.value || !thirdNumber.value) return;
   const value = firstNumber.value * secondNumber.value;
   primeKey.value = `${value}  |  ${thirdNumber.value}`
   dialog.value = true;
+
+
+try {
+    const response = await fetch('http://127.0.0.1:5000/chavepublica');  //fetch para a API/chavepublica
+    if (!response.ok) {
+      throw new Error('Erro ao buscar a chave pública');
+    }
+    const data = await response.json();
+   
+  } catch (error) {
+    console.error('Erro ao buscar a chave pública:', error);
+  }
 };
 
 const rules = ref([

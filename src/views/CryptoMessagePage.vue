@@ -80,15 +80,24 @@
   const newCryptoMessage = ref();
   const isFormValid = ref(false);
 
-  const cryptoMessage = () => {
-    const valuesArray = primeKey.value.split(/\s*\|\s*|\s*,\s*|\s+/);
+  const cryptoMessage = async () => {
+  try {
+    const response = await fetch('http://127.0.0.1:5000/encriptar'); //fetch para a API/encriptar
+    if (!response.ok) {
+      throw new Error('Erro ao buscar a chave pública');
+    }
+    const data = await response.json();
+    const valuesArray = data.Chave_Publica.split(/\s*\|\s*|\s*,\s*|\s+/);
     firstNumber.value = valuesArray[0];
     secondNumber.value = valuesArray[1];
     newCryptoMessage.value = message.value;
     dialog.value = true;
-  };
+  } catch (error) {
+    console.error('Erro ao buscar a chave pública:', error);
+  }
+};
 
-  const saveToFile = () => {
+const saveToFile = () => {
   const element = document.createElement("a");
   const file = new Blob([newCryptoMessage.value], { type: "text/plain" });
   element.href = URL.createObjectURL(file);
@@ -106,8 +115,8 @@ const copyToClipboard = async () => {
     copiedValue.value = false;
   }
 };
-  
-  const validateKey = ref([
+
+const validateKey = ref([
     (v) => !!v || "O campo é obrigatório",
     () => {
       const valuesArray = primeKey.value.split(/\s*\|\s*|\s*,\s*|\s+/);
@@ -121,5 +130,6 @@ const copyToClipboard = async () => {
     (v) => !!v || "O campo é obrigatório",
   ])
   
+
   
   </script>
