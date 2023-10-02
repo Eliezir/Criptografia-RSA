@@ -30,6 +30,11 @@ const routes = [
         path: 'decrypt-message',
         name: 'DecryptMessage',
         component: () => import('@/views/DecryptMessagePage.vue'),
+      },
+      {
+        path: 'docs',
+        name: 'Docs',
+        component: () => import('@/views/DocsPage.vue'),
       }
     ],
   },

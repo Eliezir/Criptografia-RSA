@@ -71,7 +71,7 @@ import { ref } from "vue";
 const pages = [
   {
     name: "Docs",
-    path: "/",
+    path: "/docs",
   },
   {
     name: "Gerar Chave",

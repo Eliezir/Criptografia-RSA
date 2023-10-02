@@ -5,19 +5,21 @@
       color="white"
       theme="dark"
       :side="size >= 600 ? '' : 'end' "
+      line-thickness="5"
     >
       <v-timeline-item
         v-for="(item, i) in items"
         :key="i"
         :dot-color="item.color"
         :icon="item.icon"
+        size="45px"
         fill-dot
       >
         <v-card>
           <v-card-title :class="['text-h5', `bg-${item.color}`]">
             {{ item.title }}
           </v-card-title>
-          <v-card-text class="bg-white pa-5 card-text text-body-1">
+          <v-card-text class="bg-background pa-5 card-text text-body-1 text-white">
             {{ item.text }}
           </v-card-text>
         </v-card>
