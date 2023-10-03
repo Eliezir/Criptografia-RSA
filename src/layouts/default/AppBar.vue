@@ -114,7 +114,7 @@ a {
   content: "";
   width: 0;
   height: 3px;
-  background: #2d1c5c;
+  background: #966cea;
   position: absolute;
   left: 0;
   bottom: -10px;

@@ -1,10 +1,11 @@
 <template>
-<TimeLine/>
-<div class="d-flex fill-height flex-wrap justify-center  align-content-center bg-background" id="getStated">
+    <TimeLine/>
+<div class="d-flex fill-height flex-wrap justify-center  align-content-center bg-background " id="getStated">
     <Card msg="Gerar Chave" path="generate-key"/>
     <Card msg="Criptografar" path="crypto-message"/>
     <Card msg="Descriptografar" path="decrypt-message"/>
 </div>
+
 </template>
 
 <script setup>

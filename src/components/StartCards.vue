@@ -1,7 +1,7 @@
 <template>
   <a class="gradient-border d-flex justify-center align-center" :href="path">
     <span id="box" class="d-flex justify-center align-center">
-      <p id="card-text" class="text-h2">
+      <p id="card-text" class="text-h4 text-sm-h2">
         {{ CardText }}
       </p>
     </span>
@@ -19,19 +19,19 @@ const CardText = ref(props.msg);
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@600&display=swap');
 :root {
-  --borderWidth: 10px;
+  --borderWidth: 15px;
   --height: 300px;
   --width: 400px;
   --gradient:
   45deg,
-  hsl(223deg 68% 6%) 0%,
-  hsl(261deg 76% 38%) 33%,
-  hsl(266deg 98% 70%) 67%,
-  hsl(270deg 27% 94%) 100%;
+  hsl(223deg 68% 10%) 0%,
+  hsl(261deg 76% 50%) 40%, 
+  hsl(266deg 98% 70%) 70%, 
+  hsl(270deg 27% 94%) 100%; 
 }
 
-@import url("https://fonts.googleapis.com/css?family=Raleway:200");
 
 #box {
   width: var(--width);
@@ -61,8 +61,8 @@ const CardText = ref(props.msg);
 
 #card-text {
   font-weight: bold;
-  font-size: 40px !important;
   transition: all ease 2s;
+  font-family: 'Oswald', sans-serif !important;
 }
 
 .gradient-border:hover #card-text {
