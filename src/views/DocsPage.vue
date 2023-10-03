@@ -33,7 +33,7 @@
 </template>
 
 <script setup>
-import DocsIndex from "../components/docsComponents/indexDocs.vue"
+import DocsIndex from "../components/docsComponents/IndexDocs.vue"
 import RSA from "../components/docsComponents/CriptografiaRSA.vue"
 import Key from "../components/docsComponents/KeyRsa.vue"
 import { ref } from "vue";
