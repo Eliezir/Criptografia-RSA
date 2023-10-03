@@ -2,20 +2,19 @@
   <div class="fill-height d-flex align-center justify-center">
     <v-container class="bg-secondary pa-0 pa-sm-10 rounded-xl w-75 w-sm-100">
     <v-row class="justify-center d-flex align-center">
-      <v-col cols="9" sm="5" class="d-flex justify-center align-content-center">
+      <v-col cols="9" sm="5" class="d-flex justify-center align-center">
         <img src="../assets/generateKey.svg" class="img mb-0 mb-sm-10" />
       </v-col>
       <v-col cols="10" sm="7" class="w-100">
         <h1 class="text-h6 text-sm-h3 font-weight-bold title">
           Gerando A Chave
         </h1>
-        <h2 class="text-body-1">
+        <h2 class="text-body-1 text-justify mt-2">
           Insira três números primos entre 2 e 9 dígitos!
         </h2>
         <v-form
           @submit.prevent="generateKey"
           v-model="isFormValid"
-          fast-fail
           class="d-flex flex-column"
         >
           <v-text-field
@@ -60,7 +59,7 @@
           <v-btn
             type="submit"
             :class="[
-              !isFormValid ? 'bg-transparent' : 'bg-black',
+              !isFormValid ? 'bg-transparent' : 'bg-green-accent-2',
               'w-50 w-sm-25 align-self-end rounded-lg mb-10 mb-sm-0',
             ]"
             :variant="!isFormValid ? 'outlined' : 'tonal'"
@@ -73,12 +72,12 @@
   </v-container>
   <v-dialog v-model="dialog" max-width="728">
     <v-card class="bg-background d-flex align-center justify-center">
-      <div class="d-flex align-center justify-space-between w-75 py-5">
+      <div class="d-flex align-center w-90 py-5">
+        <v-icon @click="dialog = false" class="close-btn" color="grey-lighten-1">mdi-close</v-icon>
         <v-card-title> A chave gerada é: </v-card-title>
-        <v-icon @click="dialog = false">mdi-close</v-icon>
       </div>
       <v-text-field
-        class="w-75"
+        class="w-90"
         variant="outlined"
         v-model="primeKey"
         readonly
@@ -97,14 +96,23 @@
           </v-icon>
         </template>
       </v-text-field>
-      <v-card-actions class="w-75 d-flex align-center justify-end">
+      <v-card-actions class="w-90 d-flex align-center justify-end">
         <v-btn
           @click="saveToFile"
           variant="default"
-          class="bg-green mb-3"
+          class="bg-green mb-3 mr-3"
         >
           Download
         </v-btn>
+       <a>
+        <v-btn
+          variant="default"
+          class="bg-accent mb-3"
+          @click="$router.push('/crypto-message')"
+        >
+          Criptografar
+        </v-btn>
+       </a>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -165,6 +173,7 @@ try {
       throw new Error('Erro ao buscar a chave pública');
     }
     const data = await response.json();
+    primeKey.value = data;
    
   } catch (error) {
     console.error('Erro ao buscar a chave pública:', error);
@@ -250,5 +259,15 @@ input[type="number"] {
 
 .title {
   font-family: "Lexend Deca", sans-serif !important;
+}
+
+.w-90{
+  width: 90%;
+}
+
+.close-btn{
+  position: absolute;
+  right: 10px;
+  top: 10px;
 }
 </style>
