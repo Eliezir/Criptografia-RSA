@@ -18,7 +18,7 @@
           />
           <v-textarea
           v-model="message"
-          label="Mensagem a ser criptografada"
+          label="Mensagem a ser descriptografada"
           variant="outlined"
           class="mt-5"
           counter="9"
@@ -82,13 +82,23 @@
     const isFormValid = ref(false);
   
   
-    const cryptoMessage = () => {
-      const valuesArray = primeKey.value.split(/\s*\|\s*|\s*,\s*|\s+/);
-      firstNumber.value = valuesArray[0];
-      secondNumber.value = valuesArray[1];
-      newCryptoMessage.value = message.value;
-      dialog.value = true;
-    };
+    const cryptoMessage = async () => {
+  try {
+    const response = await fetch('http://127.0.0.1:5000/desencriptar'); //fetch para desencriptar
+    if (!response.ok) {
+      throw new Error('Erro ao buscar a chave pública');
+    }
+    const data = await response.json();
+
+    const valuesArray = data.Chave_Publica.split(/\s*\|\s*|\s*,\s*|\s+/);
+    firstNumber.value = valuesArray[0];
+    secondNumber.value = valuesArray[1];
+    newCryptoMessage.value = message.value;
+    dialog.value = true;
+  } catch (error) {
+    console.error('Erro ao buscar a chave pública:', error);
+  }
+};
   
     const saveToFile = () => {
     const element = document.createElement("a");
