@@ -1,10 +1,12 @@
 
 from flask import Flask, jsonify
+from flask_cors import CORS
 
 import ctypes
 clibrary = ctypes.CDLL("/home/medino/Documentos/Faculdade/Discreta/comunicarPy/clibrary.so") #Alterar o caminho da api
 
 app = Flask(__name__)
+CORS(app)
 @app.route('/')
 
 def home():

@@ -1,11 +1,13 @@
 <template>
   <div class="fill-height d-flex align-center justify-center">
     <v-container class="bg-secondary pa-0 pa-sm-10 rounded-xl w-90 w-sm-100">
-      <v-row class="justify-center d-flex align-center flex-column-reverse
-      flex-sm-row
-      ">
+      <v-row
+        class="justify-center d-flex align-center flex-column-reverse flex-sm-row"
+      >
         <v-col cols="10" sm="7" class="w-100">
-          <h1 class="text-sm-left text-h4 font-weight-bold title">Criptografando a mensagem</h1>
+          <h1 class="text-sm-left text-h4 font-weight-bold title">
+            Criptografando a mensagem
+          </h1>
           <h2 class="d-none d-sm-block text-body-1 text-justify mt-2">
             Insira a chave gerada anteriormente e a mensagem que deseja
             criptografar
@@ -22,7 +24,6 @@
               theme="dark"
               variant="solo"
               class="mt-5"
-              counter="9"
               required
               hint="Por exemplo 7447385836446043  |  13382609"
               :rules="validateKey"
@@ -44,18 +45,14 @@
                 !isFormValid ? 'bg-transparent' : 'bg-green-accent-2',
                 'align-self-center rounded-lg mb-10 mb-sm-0',
               ]"
-               block
+              block
               :disabled="!isFormValid"
               :variant="!isFormValid ? 'outlined' : 'tonal'"
               >criptografar Mensagem</v-btn
             >
           </v-form>
         </v-col>
-        <v-col
-          cols="9"
-          sm="5"
-          class="d-flex justify-center align-center"
-        >
+        <v-col cols="9" sm="5" class="d-flex justify-center align-center">
           <img src="../assets/topSecret.svg" class="img" />
         </v-col>
       </v-row>
@@ -63,10 +60,11 @@
   </div>
   <v-dialog v-model="dialog" max-width="728" color="background">
     <v-card class="bg-background d-flex align-center">
-      <v-icon @click="dialog = false" class="close-btn" color="grey-lighten-1">mdi-close</v-icon>
+      <v-icon @click="dialog = false" class="close-btn" color="grey-lighten-1"
+        >mdi-close</v-icon
+      >
       <div class="d-flex align-center justify-space-between w-90 py-5">
-        <v-card-title
-        >A mensagem criptografada é:</v-card-title>
+        <v-card-title>A mensagem criptografada é:</v-card-title>
       </div>
       <v-textarea
         class="w-90"
@@ -91,11 +89,7 @@
         </template>
       </v-textarea>
       <v-card-actions class="w-90 d-flex align-center justify-end">
-        <v-btn
-          @click="saveToFile"
-          variant="default"
-          class="bg-green mb-3 mr-3"
-        >
+        <v-btn @click="saveToFile" variant="default" class="bg-green mb-3 mr-3">
           Download
         </v-btn>
         <v-btn
@@ -168,11 +162,18 @@ const validateKey = ref([
       "A chave deve ser composta por dois números separados por um espaço ou uma barra vertical"
     );
   },
+  () => {
+    const valuesArray = primeKey.value.split(/\s*\|\s*|\s*,\s*|\s+/);
+    const isNumber = (value) => !isNaN(value);
+    return (
+      (isNumber(valuesArray[0]) && isNumber(valuesArray[1])) ||
+      "Por favor, insira uma chave válida"
+    );
+  },
 ]);
 
 const validateMessage = ref([(v) => !!v || "O campo é obrigatório"]);
 </script>
-
 
 <style scoped>
 .img {
@@ -183,11 +184,11 @@ const validateMessage = ref([(v) => !!v || "O campo é obrigatório"]);
   text-wrap: balance !important;
 }
 
-.w-90{
+.w-90 {
   width: 90%;
 }
 
-.close-btn{
+.close-btn {
   position: absolute;
   right: 10px;
   top: 10px;
