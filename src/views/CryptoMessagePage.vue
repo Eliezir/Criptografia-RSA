@@ -4,13 +4,7 @@
       <v-row
         class="justify-center d-flex align-center flex-column-reverse flex-sm-row"
       >
-      <v-row
-        class="justify-center d-flex align-center flex-column-reverse flex-sm-row"
-      >
         <v-col cols="10" sm="7" class="w-100">
-          <h1 class="text-sm-left text-h4 font-weight-bold title">
-            Criptografando a mensagem
-          </h1>
           <h1 class="text-sm-left text-h4 font-weight-bold title">
             Criptografando a mensagem
           </h1>
@@ -52,7 +46,6 @@
                 'align-self-center rounded-lg mb-10 mb-sm-0',
               ]"
               block
-              block
               :disabled="!isFormValid"
               :variant="!isFormValid ? 'outlined' : 'tonal'"
               :loading="isLoading"
@@ -60,7 +53,6 @@
             >
           </v-form>
         </v-col>
-        <v-col cols="9" sm="5" class="d-flex justify-center align-center">
         <v-col cols="9" sm="5" class="d-flex justify-center align-center">
           <img src="../assets/topSecret.svg" class="img" />
         </v-col>
@@ -104,7 +96,6 @@
         </template>
       </v-textarea>
       <v-card-actions class="w-90 d-flex align-center justify-end">
-        <v-btn @click="saveToFile" variant="default" class="bg-green mb-3 mr-3">
         <v-btn @click="saveToFile" variant="default" class="bg-green mb-3 mr-3">
           Download
         </v-btn>
