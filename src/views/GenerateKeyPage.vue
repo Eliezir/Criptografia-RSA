@@ -64,6 +64,7 @@
             ]"
             :variant="!isFormValid ? 'outlined' : 'tonal'"
             :disabled="!isFormValid"
+            :loading="isLoading"
             >Gerar Chave</v-btn
           >
         </v-form>
@@ -72,30 +73,100 @@
   </v-container>
   <v-dialog v-model="dialog" max-width="728">
     <v-card class="bg-background d-flex align-center justify-center">
-      <div class="d-flex align-center w-90 py-5">
+      <div class="d-flex align-center w-90 pt-5">
         <v-icon @click="dialog = false" class="close-btn" color="grey-lighten-1">mdi-close</v-icon>
-        <v-card-title> A chave gerada é: </v-card-title>
+        <h1 class="text-h6 text-sm-h3 font-weight-bold title mb-3">
+          Gerando A Chave
+        </h1>
       </div>
       <v-text-field
-        class="w-90"
+        class="w-90 ma-0 pa-0"
         variant="outlined"
         v-model="primeKey"
         readonly
         ref="key"
+        label="Chave Gerada"
+        hide-details="auto"
       >
         <template v-slot:append-inner>
           <v-icon
-            @click="copyToClipboard"
-            :color="copiedValue ? 'green-accent-2' : 'grey'"
+            @click="copyToClipboard(primeKey,0)"
+            :color="copiedValue[0] ? 'green-accent-2' : 'grey'"
           >
             {{
-              copiedValue
+              copiedValue[0]
                 ? "mdi-clipboard-check-multiple-outline"
                 : "mdi-clipboard-multiple-outline"
             }}
           </v-icon>
         </template>
       </v-text-field>
+    
+      <div class="d-flex w-90 mt-5">
+      <v-text-field
+        class="w-25 ma-0 pa-0"
+        variant="outlined"
+        v-model="firstNumber"
+        readonly
+        label="Valor P"
+        ref="key"
+      >
+        <template v-slot:append-inner>
+          <v-icon
+            @click="copyToClipboard(firstNumber,1)"
+            :color="copiedValue[1] ? 'green-accent-2' : 'grey'"
+          >
+            {{
+              copiedValue[1]
+                ? "mdi-clipboard-check-multiple-outline"
+                : "mdi-clipboard-multiple-outline"
+            }}
+          </v-icon>
+        </template>
+      </v-text-field>
+      <v-text-field
+        class="w-25 mx-3 pa-0"
+        variant="outlined"
+        v-model="secondNumber"
+        readonly
+        label="Valor Q"
+        ref="key"
+      >
+        <template v-slot:append-inner>
+          <v-icon
+            @click="copyToClipboard(secondNumber,2)"
+            :color="copiedValue[2] ? 'green-accent-2' : 'grey'"
+          >
+            {{
+              copiedValue[2]
+                ? "mdi-clipboard-check-multiple-outline"
+                : "mdi-clipboard-multiple-outline"
+            }}
+          </v-icon>
+        </template>
+      </v-text-field>
+      <v-text-field
+        class="w-25 ma-0 pa-0"
+        variant="outlined"
+        v-model="thirdNumber"
+        readonly
+        label="Valor E"
+        ref="key"
+      >
+        <template v-slot:append-inner>
+          <v-icon
+            @click="copyToClipboard(thirdNumber,3)"
+            :color="copiedValue[3] ? 'green-accent-2' : 'grey'"
+          >
+            {{
+              copiedValue[3]
+                ? "mdi-clipboard-check-multiple-outline"
+                : "mdi-clipboard-multiple-outline"
+            }}
+          </v-icon>
+        </template>
+      </v-text-field>
+      </div>
       <v-card-actions class="w-90 d-flex align-center justify-end">
         <v-btn
           @click="saveToFile"
@@ -127,7 +198,8 @@ const thirdNumber = ref();
 const primeKey = ref();
 const dialog = ref(false);
 const isFormValid = ref(false);
-const copiedValue = ref(false);
+const copiedValue = ref([false, false, false, false]);
+const isLoading = ref(false);
 
 const randomFirstNumber = () => {
   firstNumber.value = generate8DigitPrime();
@@ -140,18 +212,20 @@ const randomThirdNumber = () => {
   thirdNumber.value = generate8DigitPrime();
 };
 
-const copyToClipboard = async () => {
+const copyToClipboard = async (value, index) => {
   try {
-    await navigator.clipboard.writeText(primeKey.value);
-    copiedValue.value = true;
+    await navigator.clipboard.writeText(value);
+    copiedValue.value = [false, false, false, false];
+    copiedValue.value[index] = true;
   } catch (err) {
-    copiedValue.value = false;
+    console.log(err);
   }
 };
 
 const saveToFile = () => {
   const element = document.createElement("a");
-  const file = new Blob([primeKey.value], { type: "text/plain" });
+  const fileContent = `Chave Publica: ${primeKey.value}\nValor P, Q, E: ${firstNumber.value} | ${secondNumber.value} | ${thirdNumber.value}`;
+  const file = new Blob([fileContent], { type: "text/plain" });
   element.href = URL.createObjectURL(file);
   element.download = "chave.txt";
   document.body.appendChild(element);
@@ -160,24 +234,20 @@ const saveToFile = () => {
 };
 
 const generateKey = async () => {
+  isLoading.value = true;
   copiedValue.value = false;
-  if (!firstNumber.value || !secondNumber.value || !thirdNumber.value) return;
-  const value = firstNumber.value * secondNumber.value;
-  primeKey.value = `${value}  |  ${thirdNumber.value}`;
-  dialog.value = true;
-
-
-try {
-    const response = await fetch('http://127.0.0.1:5000/chavepublica');  //fetch para a API/chavepublica
-    if (!response.ok) {
-      throw new Error('Erro ao buscar a chave pública');
-    }
+  try {
+    const response = await fetch(
+      `http://eliezir.pythonanywhere.com/chavepublica/${firstNumber.value}/${secondNumber.value}/${thirdNumber.value}`
+    );
     const data = await response.json();
-    primeKey.value = data;
-   
-  } catch (error) {
-    console.error('Erro ao buscar a chave pública:', error);
+    const values = data.Chave_Publica.split(" ");
+    primeKey.value = `${values[0]} | ${values[1]}`;
+    dialog.value = true;
+  } catch (err) {
+    console.log(err);
   }
+  isLoading.value = false;
 };
 
 const rules = ref([

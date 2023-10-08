@@ -19,17 +19,17 @@
           >
             <v-text-field
               v-model="primeKey"
-              label="Chave Pública"
+              label="Chave Privada"
               variant="solo"
               theme="dark"
               class="mt-5"
               counter="9"
               required
-              hint="Por exemplo 7447385836446043  |  13382609"
+              hint="Por exemplo 44623171 | 12935173 | 51499429"
               :rules="validateKey"
             />
             <v-textarea
-              v-model="message"
+              v-model="cryptMessage"
               label="Mensagem a ser descriptografada"
               variant="solo"
               theme="dark"
@@ -48,6 +48,7 @@
                block
               :disabled="!isFormValid"
               :variant="!isFormValid ? 'outlined' : 'tonal'"
+              :loading="isLoading"
               >descriptografar Mensagem</v-btn
             >
           </v-form>
@@ -59,15 +60,17 @@
     <v-card class="bg-background d-flex align-center">
       <v-icon @click="dialog = false" class="close-btn" color="grey-lighten-1">mdi-close</v-icon>
       <div class="d-flex align-center justify-space-between w-90 py-5">
-        <h1 class="text-left">A mensagem descriptografada é:</h1>
+        <h1 class="text-sm-left text-h5 text-sm-h4 font-weight-bold title">
+            Descriptografando a mensagem</h1>
       </div>
       <v-textarea
         class="w-90"
         variant="outlined"
-        v-model="newCryptoMessage"
+        v-model="message"
         readonly
         ref="key"
         no-resize
+        label="Mensagem Descriptografada"
       >
         <template v-slot:append-inner>
           <v-icon
@@ -98,35 +101,41 @@
 <script setup>
 import { ref } from "vue";
 const primeKey = ref();
-const message = ref();
-const firstNumber = ref();
-const secondNumber = ref();
+const cryptMessage = ref();
+const pNumber = ref();
+const qNumber = ref();
+const eNumber = ref();
 const dialog = ref(false);
 const copiedValue = ref(false);
-const newCryptoMessage = ref();
+const message = ref();
 const isFormValid = ref(false);
+const isLoading = ref(false);
 
 const cryptoMessage = async () => {
-  try {
-    const response = await fetch("http://127.0.0.1:5000/desencriptar"); //fetch para desencriptar
-    if (!response.ok) {
-      throw new Error("Erro ao buscar a chave pública");
-    }
+  isLoading.value = true;
+  copiedValue.value = false;
+  const valuesArray = primeKey.value.split(/\s*\|\s*|\s*,\s*|\s+/);
+  pNumber.value = valuesArray[0];
+  qNumber.value = valuesArray[1];
+  eNumber.value = valuesArray[2];
+  try{
+    const response = await fetch(
+      `http://eliezir.pythonanywhere.com/descriptografar/${pNumber.value}/${qNumber.value}/${eNumber.value}/${cryptMessage.value}`
+    )
     const data = await response.json();
-
-    const valuesArray = data.Chave_Publica.split(/\s*\|\s*|\s*,\s*|\s+/);
-    firstNumber.value = valuesArray[0];
-    secondNumber.value = valuesArray[1];
-    newCryptoMessage.value = message.value;
+    message.value = data.Mensagem_Desencriptada;
     dialog.value = true;
-  } catch (error) {
-    console.error("Erro ao buscar a chave pública:", error);
   }
+  catch(err){
+    console.log(err);
+  }
+  isLoading.value = false;
+
 };
 
 const saveToFile = () => {
   const element = document.createElement("a");
-  const file = new Blob([newCryptoMessage.value], { type: "text/plain" });
+  const file = new Blob([message.value], { type: "text/plain" });
   element.href = URL.createObjectURL(file);
   element.download = "mensagemDescriptografada.txt";
   document.body.appendChild(element);
@@ -136,7 +145,7 @@ const saveToFile = () => {
 
 const copyToClipboard = async () => {
   try {
-    await navigator.clipboard.writeText(newCryptoMessage.value);
+    await navigator.clipboard.writeText(message.value);
     copiedValue.value = true;
   } catch (err) {
     copiedValue.value = false;
@@ -149,9 +158,10 @@ const validateKey = ref([
     const valuesArray = primeKey.value.split(/\s*\|\s*|\s*,\s*|\s+/);
     const hasFirstNumber = !!valuesArray[0];
     const hasSecondNumber = !!valuesArray[1];
+    const hasThirdNumber = !!valuesArray[2];
     return (
-      (hasFirstNumber && hasSecondNumber) ||
-      "A chave deve ser composta por dois números separados por um espaço ou uma barra vertical"
+      (hasFirstNumber && hasSecondNumber && hasThirdNumber) ||
+      "A chave deve ser composta por três números separados por um espaço ou uma barra vertical"
     );
   },
 ]);
