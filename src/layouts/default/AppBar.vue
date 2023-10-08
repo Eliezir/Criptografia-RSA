@@ -23,7 +23,7 @@
         >{{ page.name }}</a
       >
     </div>
-      <a href="https://github.com/Eliezir" target="_blank">
+      <a href="https://github.com/Eliezir/Criptografia-RSA" target="_blank" class="icons">
         <v-icon>mdi-github</v-icon>
       </a>
     </div>
@@ -132,6 +132,16 @@ a {
 #navbar {
   left: 7.5% !important;
   width: 85% !important;
+}
+
+.icons{
+  font-size: 20px;
+  transition: all ease-in 0.2s;
+}
+
+.icons:hover{
+  transform: scale(1.2);
+  color:#966cea;
 }
 
 @media screen and (max-width: 960px) {

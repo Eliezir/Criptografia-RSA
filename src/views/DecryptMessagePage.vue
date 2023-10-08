@@ -23,7 +23,6 @@
               variant="solo"
               theme="dark"
               class="mt-5"
-              counter="9"
               required
               hint="Por exemplo 44623171 | 12935173 | 51499429"
               :rules="validateKey"
