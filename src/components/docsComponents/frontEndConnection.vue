@@ -4,13 +4,13 @@
         <p>A API é responsável por fornecer funcionalidades relacionadas à criptografia de mensagens utilizando uma biblioteca em C. Ela oferece rotas para gerar chave pública, criptografar e descriptografar mensagens.</p>
       <div class="my-5 w-100">
         <h2>Funcionalidades</h2>
-        <pre class="mt-2"><h2> - Rota <strong >"/"</strong> </h2></pre>
-        <ul class="ml-10">
+        <h2 class="text-h6 text-sm-h5 font-weight-bold"> - Rota "/" </h2>
+        <ul class="ml-1 ml-sm-10 my-1">
             <li> Descrição: Retorna uma mensagem informando que a API está em funcionamento.</li>
             <li> Método: GET </li>
         </ul>
-        <pre class="mt-2"><h2> - Rota <strong >"/chavepublica/{p}/{q}/{e}"</strong> </h2></pre>
-        <ul class="ml-10 my-1">
+        <h2 class="text-h6 text-sm-h5 font-weight-bold"> - Rota "/chavepublica/{p}/{q}/{e}"</h2>
+        <ul class="ml-1 ml-sm-10 my-1">
             <li> Descrição: Gera uma chave pública com base nos parâmetros fornecidos.</li>
             <li> Método: GET </li>
             <li> Parâmetros:
@@ -28,8 +28,8 @@
                 </ul>
             </li>
         </ul>
-        <pre><h2> - Rota <strong >"/criptografar/{mensagem}/{key}/{e}"</strong> </h2></pre>
-        <ul class="ml-10 my-1">
+        <h2 class="text-h6 text-sm-h5 font-weight-bold"> - Rota "/criptografar/{mensagem}/{key}/{e}" </h2>
+        <ul class="ml-1 ml-sm-10 my-1">
             <li> Descrição: Criptografa uma mensagem pura utilizando os parâmetros fornecidos.</li>
             <li> Método: GET </li>
             <li> Parâmetros:
@@ -47,8 +47,9 @@
                 </ul>
             </li>
         </ul>
-        <pre><h2> - Rota <strong >"/descriptografar/{p}/{q}/{e}/{mensagem_criptografada}"</strong> </h2></pre>
-        <ul class="ml-10 my-1">
+        <h2 class="text-h6 text-sm-h5 font-weight-bold d-none d-sm-flex"> - Rota "/descriptografar/{p}/{q}/{e}/{mensagem_criptografada}"</h2>
+        <h2 class="text-h6 text-sm-h5 font-weight-bold d-sm-none d-flex flex-column"> - Rota "/descriptografar/<br>{p}/{q}/{e}/{mensagem_criptografada}"</h2>
+        <ul class="ml-1 ml-sm-10 my-1">
             <li> Descrição: Descriptografa uma mensagem dado os parâmetros corretos.</li>
             <li> Método: GET </li>
             <li> Parâmetros:
