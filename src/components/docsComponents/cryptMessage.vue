@@ -12,7 +12,7 @@
         forma: posição do array + 32. Exemplo: '!' equivale a 33 = 1 + 32.
       </p>
     </div>
-    <img class="w-100" src="@/assets/docs/preCodificar.png" />
+    <img class="w-100" src="@/assets/docs/preCode.png" />
     <div class="my-5 w-100">
       <p>
         Para criptografar mensagens usando uma chave publica (n, e), Traduzimos
