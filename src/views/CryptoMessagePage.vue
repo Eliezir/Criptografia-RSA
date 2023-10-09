@@ -37,6 +37,7 @@
               required
               :rules="validateMessage"
               no-resize
+              counter
             />
 
             <v-btn
@@ -59,7 +60,7 @@
       </v-row>
     </v-container>
   </div>
-  <v-dialog v-model="dialog" max-width="728" color="background">
+  <v-dialog v-model="dialog" max-width="1024" color="background">
     <v-card class="bg-background d-flex align-center">
       <v-icon @click="dialog = false" class="close-btn" color="grey-lighten-1"
         >mdi-close</v-icon
@@ -79,7 +80,7 @@
         readonly
         ref="key"
         no-resize
-        :rows="newCryptoMessage.length/40"
+        :rows="newCryptoMessage.length/80"
         label="Mensagem Criptografada"
       >
         <template v-slot:append-inner>
@@ -132,7 +133,7 @@ const cryptoMessage = async () => {
   secondNumber.value = valuesArray[1];
   try {
     const response = await fetch(
-      `http://eliezir.pythonanywhere.com/criptografar/${message.value} /${firstNumber.value}/${secondNumber.value}`
+      `https://eliezir.pythonanywhere.com/criptografar/${message.value} /${firstNumber.value}/${secondNumber.value}`
     );
     const data = await response.json();
     newCryptoMessage.value = data.encrypted_message;

@@ -238,7 +238,7 @@ const generateKey = async () => {
   copiedValue.value = false;
   try {
     const response = await fetch(
-      `http://eliezir.pythonanywhere.com/chavepublica/${firstNumber.value}/${secondNumber.value}/${thirdNumber.value}`
+      `https://eliezir.pythonanywhere.com/chavepublica/${firstNumber.value}/${secondNumber.value}/${thirdNumber.value}`
     );
     const data = await response.json();
     const values = data.public_key.split(" ");

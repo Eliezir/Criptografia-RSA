@@ -119,7 +119,7 @@ const cryptoMessage = async () => {
   eNumber.value = valuesArray[2];
   try{
     const response = await fetch(
-      `http://eliezir.pythonanywhere.com/descriptografar/${pNumber.value}/${qNumber.value}/${eNumber.value}/${cryptMessage.value}`
+      `https://eliezir.pythonanywhere.com/descriptografar/${pNumber.value}/${qNumber.value}/${eNumber.value}/${cryptMessage.value}`
     )
     const data = await response.json();
     message.value = data.decrypted_message;
