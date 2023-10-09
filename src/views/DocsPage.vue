@@ -1,6 +1,6 @@
 <template>
     <v-navigation-drawer
-        class="bg-background w-15 d-flex align-start"
+        class="bg-background w-15 align-start d-none d-sm-flex"
       >
         <v-list>
           <v-list-item>
