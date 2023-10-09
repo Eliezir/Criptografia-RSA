@@ -135,7 +135,8 @@ const cryptoMessage = async () => {
       `http://eliezir.pythonanywhere.com/criptografar/${message.value} /${firstNumber.value}/${secondNumber.value}`
     );
     const data = await response.json();
-    newCryptoMessage.value = data.Mensagem_Encriptada;
+    newCryptoMessage.value = data.encrypted_message;
+
     dialog.value = true;
   } catch (err) {
     console.log(err);

@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex flex-column justify-center align-center">
-    <h1 class="text-left w-100">Gerando uma chave</h1>
+    <h1 class="text-left w-100">Como gerar uma chave ?</h1>
 
     <div class="my-5">
       <h2>Chave pública</h2>
@@ -13,7 +13,7 @@
         correspondente pode descriptografá-la com sucesso.
       </p>
     </div>
-    <div class="my-5">
+    <div>
       <h2>Chave Privada</h2>
       <p>
         A chave privada é o segredo que precisa ser mantido em sigilo absoluto. Somente o destinatário legítimo possui acesso a essa chave. Ela é usada para descriptografar as mensagens cifradas com a chave pública correspondente.

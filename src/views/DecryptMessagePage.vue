@@ -9,7 +9,7 @@
           <h1 class="text-sm-left text-h5 text-sm-h4 font-weight-bold title">
             Descriptografando a mensagem</h1>
             <h2 class="d-none d-sm-block text-body-1 text-justify mt-2">
-            Insira a chave gerada anteriormente e a mensagem que deseja
+            Insira a os valores utilizados anteriormente para gerar a chave pública e a mensagem que deseja
             descriptografar
           </h2>
           <v-form
@@ -19,7 +19,7 @@
           >
             <v-text-field
               v-model="primeKey"
-              label="Chave Privada"
+              label="Valores p | q | e"
               variant="solo"
               theme="dark"
               class="mt-5"
@@ -122,7 +122,7 @@ const cryptoMessage = async () => {
       `http://eliezir.pythonanywhere.com/descriptografar/${pNumber.value}/${qNumber.value}/${eNumber.value}/${cryptMessage.value}`
     )
     const data = await response.json();
-    message.value = data.Mensagem_Desencriptada;
+    message.value = data.decrypted_message;
     dialog.value = true;
   }
   catch(err){

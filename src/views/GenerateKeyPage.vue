@@ -241,7 +241,7 @@ const generateKey = async () => {
       `http://eliezir.pythonanywhere.com/chavepublica/${firstNumber.value}/${secondNumber.value}/${thirdNumber.value}`
     );
     const data = await response.json();
-    const values = data.Chave_Publica.split(" ");
+    const values = data.public_key.split(" ");
     primeKey.value = `${values[0]} | ${values[1]}`;
     dialog.value = true;
   } catch (err) {

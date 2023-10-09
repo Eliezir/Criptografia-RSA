@@ -24,7 +24,7 @@
     </div>
     <img class="w-100" src="@/assets/docs/descriptografar.png" />
     <ButtonsRow
-      nextName="Conexão com o FrontEnd"
+      nextName="API"
       @next="nextPage"
       previousName="Criptografar"
       @previous="previousPage"
@@ -37,7 +37,7 @@ import ButtonsRow from "./buttonsRow.vue";
 import { defineEmits } from "vue";
 const emit = defineEmits(["next", "previous"]);
 const nextPage = () => {
-  emit("next", "frontEndConnection");
+  emit("next", "API");
 };
 
 const previousPage = () => {
