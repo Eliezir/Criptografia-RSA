@@ -133,7 +133,7 @@ const cryptoMessage = async () => {
   secondNumber.value = valuesArray[1];
   try {
     const response = await fetch(
-      `https://eliezir.pythonanywhere.com/criptografar/${message.value} /${firstNumber.value}/${secondNumber.value}`
+      `https://eliezir.pythonanywhere.com/criptografar/${message.value}|s| /${firstNumber.value}/${secondNumber.value}`
     );
     const data = await response.json();
     newCryptoMessage.value = data.encrypted_message;

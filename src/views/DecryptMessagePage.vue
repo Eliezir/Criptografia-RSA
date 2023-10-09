@@ -122,7 +122,8 @@ const cryptoMessage = async () => {
       `https://eliezir.pythonanywhere.com/descriptografar/${pNumber.value}/${qNumber.value}/${eNumber.value}/${cryptMessage.value}`
     )
     const data = await response.json();
-    message.value = data.decrypted_message;
+    const msg = data.decrypted_message.split("|s|");
+    message.value = msg[0]
     dialog.value = true;
   }
   catch(err){
